@@ -4,11 +4,9 @@ from src.a429Decoder import *
 class test_a429Decoder (unittest.TestCase):
 
     def setUp(self):
-        pass
+         self.a429Decoder = a429Decoder()
 
     def test_receiveNoneData(self):
-
-        self.a429Decoder = a429Decoder()
 
         with self.assertRaises(BufferError):
 
@@ -16,7 +14,6 @@ class test_a429Decoder (unittest.TestCase):
 
     def test_hiToLowTransition(self):
 
-        self.a429Decoder = a429Decoder()
         self.a429Decoder.setData("4")
         self.a429Decoder.setData("-4")
         self.assertEquals("10",self.a429Decoder._data)
@@ -30,21 +27,18 @@ class test_a429Decoder (unittest.TestCase):
 
     def test_twoHiTransitions(self):
 
-        self.a429Decoder = a429Decoder()
         self.a429Decoder.setData("4")
         self.a429Decoder.setData("4")
         self.assertEquals("11",self.a429Decoder._data)
 
     def test_twoLowTransitions(self):
 
-        self.a429Decoder = a429Decoder()
         self.a429Decoder.setData("-4")
         self.a429Decoder.setData("-4")
         self.assertEquals("00",self.a429Decoder._data)
 
     def test_treeHiTransitions(self):
 
-        self.a429Decoder = a429Decoder()
         self.a429Decoder.setData("4")
         self.a429Decoder.setData("4")
         self.a429Decoder.setData("4")
@@ -52,7 +46,6 @@ class test_a429Decoder (unittest.TestCase):
 
     def test_treeLowTransitions(self):
 
-        self.a429Decoder = a429Decoder()
         self.a429Decoder.setData("-4")
         self.a429Decoder.setData("-4")
         self.a429Decoder.setData("-4")
