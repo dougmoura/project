@@ -1,9 +1,5 @@
-
 from src.a429StateMachine import  *
-#constants
 
-HI_LEVEL = 3
-LOW_LEVEL = -3
 
 class a429Decoder():
 
@@ -11,6 +7,7 @@ class a429Decoder():
 
         self._data = ""
         self._stateMachine = a429StateMachine()
+        self._stateMachine.clearMachine()
 
     def getData(self):
 
@@ -24,7 +21,13 @@ class a429Decoder():
 
     def setData(self,voltageLevel):
 
-        self._data = self._stateMachine.goToNextState(voltageLevel)
+        if ((int(voltageLevel) < HI_LEVEL) and (int(voltageLevel) > LOW_LEVEL)):
+
+            raise ValueError
+
+        else:
+
+            self._data = self._stateMachine.goToNextState(voltageLevel)
 
 
 

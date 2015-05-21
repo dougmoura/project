@@ -10,7 +10,12 @@ class test_a429Decoder (unittest.TestCase):
 
         with self.assertRaises(BufferError):
 
-            self.assertEqual (self.a429Decoder.getData(),"")
+            self.assertEquals(self.a429Decoder.getData(),"")
+
+
+######################################################################
+# TESTING SIMPLE TRANSITIONS OF INPUT RECEIVED FROM ANALOG BUS READER
+######################################################################
 
     def test_hiToLowTransition(self):
 
@@ -50,6 +55,36 @@ class test_a429Decoder (unittest.TestCase):
         self.a429Decoder.setData("-4")
         self.a429Decoder.setData("-4")
         self.assertEquals("000",self.a429Decoder._data)
+
+    def test_doubleLowTransitions(self):
+
+        self.a429Decoder.setData("-4")
+        self.a429Decoder.setData("4")
+        self.a429Decoder.setData("-4")
+        self.assertEquals("010",self.a429Decoder._data)
+
+    def test_doubleHiTransitions(self):
+
+        self.a429Decoder.setData("4")
+        self.a429Decoder.setData("-4")
+        self.a429Decoder.setData("4")
+        self.assertEquals("101",self.a429Decoder._data)
+
+######################################################################
+#TESTING SPECIFICATION OF A429 BUS
+######################################################################
+
+    def test_voltageHiBelowThreshold(self):
+
+        with self.assertRaises(ValueError):
+
+            self.a429Decoder.setData("2")
+
+    def test_voltageLowBelowThreshold(self):
+
+        with self.assertRaises(ValueError):
+
+            self.a429Decoder.setData("-2")
 
     def tearDown(self):
         pass
