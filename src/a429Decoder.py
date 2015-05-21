@@ -21,49 +21,13 @@ class a429Decoder():
 
     def setData(self,voltageLevel):
 
-        if ((int(voltageLevel) < HI_LEVEL) and (int(voltageLevel) > LOW_LEVEL)):
+        if ((float(voltageLevel) < HI_LEVEL) and (float(voltageLevel) > LOW_LEVEL)):
 
             raise ValueError
 
         else:
 
             self._data = self._stateMachine.goToNextState(voltageLevel)
-
-
-
-        # if (self._thisState is 0):
-        #
-        #     if (int(voltageLevel) >= HI_LEVEL):
-        #
-        #         self._thisState = 1
-        #         self._data += "1"
-        #
-        #     else:
-        #
-        #         self._thisState = 2
-        #         self._data += "0"
-        #
-        # elif (self._thisState is 1):
-        #
-        #         if (int(voltageLevel) <= LOW_LEVEL):
-        #             self._thisState = 0
-        #             self._data +="0"
-        #
-        #         else:
-        #
-        #             self._thisState = 0
-        #             self._data += "1"
-        #
-        # elif (self._thisState is 2):
-        #
-        #         if (int(voltageLevel) >= HI_LEVEL):
-        #             self._thisState = 0
-        #             self._data +="1"
-        #
-        #         else:
-        #
-        #             self._thisState = 0
-        #             self._data += "0"
 
 
 

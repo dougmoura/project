@@ -4,6 +4,7 @@ from src.a429Decoder import *
 class test_a429Decoder (unittest.TestCase):
 
     def setUp(self):
+
          self.a429Decoder = a429Decoder()
 
     def test_receiveNoneData(self):
@@ -11,7 +12,6 @@ class test_a429Decoder (unittest.TestCase):
         with self.assertRaises(BufferError):
 
             self.assertEquals(self.a429Decoder.getData(),"")
-
 
 ######################################################################
 # TESTING SIMPLE TRANSITIONS OF INPUT RECEIVED FROM ANALOG BUS READER
@@ -78,13 +78,23 @@ class test_a429Decoder (unittest.TestCase):
 
         with self.assertRaises(ValueError):
 
-            self.a429Decoder.setData("2")
+            self.a429Decoder.setData("2.99")
 
     def test_voltageLowBelowThreshold(self):
 
         with self.assertRaises(ValueError):
 
-            self.a429Decoder.setData("-2")
+            self.a429Decoder.setData("-2.99")
+
+    def test_equalUpperLevel(self):
+
+        self.a429Decoder.setData("3.00001")
+        self.assertEquals("1",self.a429Decoder._data)
+
+    def test_equalLowerLevel(self):
+
+        self.a429Decoder.setData("-3.00001")
+        self.assertEquals("0",self.a429Decoder._data)
 
     def tearDown(self):
         pass

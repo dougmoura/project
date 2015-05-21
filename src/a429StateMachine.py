@@ -1,7 +1,7 @@
 
 #CONSTANTS FOR ARINC429
-HI_LEVEL = 3
-LOW_LEVEL = -3
+HI_LEVEL = 3.0
+LOW_LEVEL = -3.0
 
 
 class a429StateMachine():
@@ -19,6 +19,8 @@ class a429StateMachine():
 
     def goToNextState(self,voltageLevel):
 
+        floatVoltageLevel = float(voltageLevel)
+
         if (self._clear is 1):
 
             self._clear = 0
@@ -28,13 +30,13 @@ class a429StateMachine():
 
            self._thisState = self._nextState
 
-        return self.procesStates(voltageLevel)
+        return self.procesStates(floatVoltageLevel)
 
-    def procesStates(self,voltageLevel):
+    def procesStates(self,voltage):
 
         if (self._thisState is 0):
 
-            if (int(voltageLevel) >= HI_LEVEL):
+            if (voltage >= HI_LEVEL):
 
                 self._outputData += "1"
                 self._nextState = 1
@@ -47,7 +49,7 @@ class a429StateMachine():
 
         if (self._thisState is 1):
 
-            if (int(voltageLevel) >= HI_LEVEL):
+            if (voltage >= HI_LEVEL):
 
                 self._outputData += "1"
                 self._nextState = 1
@@ -59,7 +61,7 @@ class a429StateMachine():
 
         if (self._thisState is 2):
 
-            if (int(voltageLevel) >= HI_LEVEL):
+            if (voltage >= HI_LEVEL):
 
                 self._outputData += "1"
                 self._nextState = 1
