@@ -5,13 +5,15 @@ class a429Decoder():
 
     def __init__(self):
 
-        self._data = ""
+        self._dataLenght = 32
+        self._data = []
+        self._label = []
         self._stateMachine = a429StateMachine()
         self._stateMachine.clearMachine()
 
     def getData(self):
 
-        if (self._data is ""):
+        if (len(self._data) is 0):
 
             raise BufferError
 
@@ -29,5 +31,8 @@ class a429Decoder():
 
             self._data = self._stateMachine.goToNextState(voltageLevel)
 
+    def getLabel(self):
 
+        self._label = self._data[:8]
+        return list(reversed(self._label))
 
