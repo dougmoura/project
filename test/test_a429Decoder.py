@@ -71,30 +71,41 @@ class test_a429Decoder (unittest.TestCase):
         self.assertEquals("101",self.a429Decoder._data)
 
 ######################################################################
-#TESTING SPECIFICATION OF A429 BUS
+#TESTING SPECIFICATION BOUNDARIES OF A429 BUS
 ######################################################################
 
-    def test_voltageHiBelowThreshold(self):
+    def test_belowUpperLevelThreshold(self):
 
         with self.assertRaises(ValueError):
 
             self.a429Decoder.setData("2.99")
 
-    def test_voltageLowBelowThreshold(self):
+    def test_belowLowerLevelThreshold(self):
 
         with self.assertRaises(ValueError):
 
             self.a429Decoder.setData("-2.99")
 
-    def test_equalUpperLevel(self):
+    def test_overUpperLevelThreshold(self):
 
         self.a429Decoder.setData("3.00001")
         self.assertEquals("1",self.a429Decoder._data)
 
-    def test_equalLowerLevel(self):
+    def test_overLowerLevelThreshold(self):
 
         self.a429Decoder.setData("-3.00001")
         self.assertEquals("0",self.a429Decoder._data)
+
+######################################################################
+#TESTING PACKAGING OF A429 DECODER
+######################################################################
+    def test_receivedFullPackage(self):
+
+        for i in range(0,32):
+            self.a429Decoder.setData("3")
+
+        self.assertEquals("11111111111111111111111111111111",self.a429Decoder._data)
+
 
     def tearDown(self):
         pass

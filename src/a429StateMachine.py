@@ -46,7 +46,6 @@ class a429StateMachine():
                 self._outputData += "0"
                 self._nextState = 2
 
-
         if (self._thisState is 1):
 
             if (voltage >= HI_LEVEL):
@@ -70,6 +69,5 @@ class a429StateMachine():
 
                 self._outputData += "0"
                 self._nextState = 2
-
 
         return self._outputData
